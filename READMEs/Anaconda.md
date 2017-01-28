@@ -20,7 +20,7 @@ if [[ -n $BASH_VERSION ]]; then
     _SHELL="bash"
 ```
 
-At leat in my zsh environment (I've been using zsh over a decade). For some reason, it seems that zsh automatically checks whether an env var is defined, and outputs an error, even in an if clause as above. My workaround was to update /anaconda/bin/activate as follows: 
+At leat in my zsh environment (I've been using zsh over a decade). For some reason, it seems that zsh automatically checks whether an env var is defined, and outputs an error, even in an if clause as above. My workaround was to update `/anaconda/bin/activate` as follows: 
 
 ```
 # Determine the directory containing this script
@@ -49,6 +49,8 @@ else
     return 1
 fi
 ```
+
+(You'll need to do something similar for `/anaconda/bin/deactivate`)
 
 This indeed looks like a dirty hack. But at least it seems to be working fine in my environment (well, at least so far). 
 
