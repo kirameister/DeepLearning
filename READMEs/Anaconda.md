@@ -20,5 +20,35 @@ if [[ -n $BASH_VERSION ]]; then
     _SHELL="bash"
 ```
 
-At leat in my zsh environment (I've been using zsh over a decade). For some reason, it seems that zsh automatically 
+At leat in my zsh environment (I've been using zsh over a decade). For some reason, it seems that zsh automatically checks whether an env var is defined, and outputs an error, even in an if clause as above. My workaround was to update /anaconda/bin/activate as follows: 
+
+```
+# Determine the directory containing this script
+if [[ -n ${ZSH_VERSION:-} ]]; then
+    _SCRIPT_LOCATION=${funcstack[1]}
+    _SHELL="zsh"
+elif [[ -n ${BASH_VERSION:-""} ]]; then
+    _SCRIPT_LOCATION=${BASH_SOURCE[0]}
+    _SHELL="bash"
+else
+    echo "Only bash and zsh are supported!"
+    return 1
+fi
+..
+..
+if [[ -n ${BASH_VERSION:-} ]] && [[ "$(basename "$0" 2> /dev/null)" == "activate" ]]; then
+    (>&2 echo "Error: activate must be sourced. Run 'source activate envname'
+..
+..
+if [[ -n $ZSH_VERSION ]]; then
+    rehash
+elif [[ -n $BASH_VERSION ]]; then
+    hash -r
+else
+    echo "Only bash and zsh are supported"
+    return 1
+fi
+```
+
+This indeed looks like a dirty hack. But at least it seems to be working fine in my environment (well, at least so far). 
 
