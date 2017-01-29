@@ -6,7 +6,7 @@ While I realize Anaconda is a great mechanism to let multiple "modular" environm
 
 Perhaps it's because I've been using zsh, which is (for some reasno) less known than bash. I used GUI installation and chose to let the Anaconda be used by all the users in the machine (I'm using Mac OS X). It took few minutes to figure out where the Anaconda was actually installed. Solving something like following in my `$HOME/.zshrc` solved the problem: 
 
-```
+```sh
 export PATH=/opt/local/bin:/anaconda/bin:$PATH
 ```
 
@@ -14,7 +14,7 @@ export PATH=/opt/local/bin:/anaconda/bin:$PATH
 
 This is most likely caused by the lines like following: 
 
-```
+```sh
 if [[ -n $BASH_VERSION ]]; then
     _SCRIPT_LOCATION=${BASH_SOURCE[0]}
     _SHELL="bash"
@@ -22,7 +22,7 @@ if [[ -n $BASH_VERSION ]]; then
 
 At leat in my zsh environment (I've been using zsh over a decade). For some reason, it seems that zsh automatically checks whether an env var is defined, and outputs an error, even in an if clause as above. My workaround was to update `/anaconda/bin/activate` as follows: 
 
-```
+```sh
 # Determine the directory containing this script
 if [[ -n ${ZSH_VERSION:-} ]]; then
     _SCRIPT_LOCATION=${funcstack[1]}
