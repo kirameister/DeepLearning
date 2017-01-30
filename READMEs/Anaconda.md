@@ -10,7 +10,8 @@ Perhaps it's because I've been using zsh, which is (for some reasno) less known 
 export PATH=/opt/local/bin:/anaconda/bin:$PATH
 ```
 
-## $BASH_VERSION: parameter not set, when trying to run source activate
+## /anaconda/bin/activate:4: BASH_VERSION: parameter not set, when trying to run source activate
+
 
 This is most likely caused by the lines like following: 
 
