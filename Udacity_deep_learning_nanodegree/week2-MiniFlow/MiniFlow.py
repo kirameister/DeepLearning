@@ -38,3 +38,14 @@ class Add(Node):
     def forward(self):
         pass
 
+
+def toplogical_sort(feed_dict):
+    input_nodes = [n for n in feed_dict.keys()]
+    G = {}
+    nodes = [n for n in input_nodes]
+    while(len(nodes) > 0):
+        n = nodes.pop(0)
+        if(n not in G):
+            G[n] = {'in': set(), 'out': set()}
+
+
