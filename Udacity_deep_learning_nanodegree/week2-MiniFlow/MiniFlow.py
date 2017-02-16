@@ -18,6 +18,9 @@ class Node(object):
         Compute the output value based on inbound_nodes and 
         store the results in self.value
         """
+        self.value = 0.0
+        for n in self.inbound_nodes:
+            value += n
         pass
 
 class Input(Node):
