@@ -21,10 +21,19 @@ class Node(object):
         pass
 
 class Input(Node):
+    # An Input node has no inbound nodes. 
+    # so no need to pass anything to that Node instantiator. 
     def __init__(self):
         Node.__init__(self)
 
+    # NOTE: Input node is the only node where the value 
+    # may be passed to an argument to forward().
+    # All other node implementation should get values 
+    # of the previous node from self.inbound_nodes
+    # Examle:
+    #   val0 = self.inbound_nodes[0].value
     def forward(self, value=None):
+        # Overwrite the value if it exists. 
         if(value is not None):
             self.value = value
 
