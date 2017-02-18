@@ -42,7 +42,7 @@ class Add(Node):
         Node.__init__(self, [x, y])
 
     def forward(self):
-        pass
+        self.value = self.inbound_nodes[0].value + self.inbound_nodes[1].value
 
 
 def toplogical_sort(feed_dict):
@@ -54,4 +54,17 @@ def toplogical_sort(feed_dict):
         if(n not in G):
             G[n] = {'in': set(), 'out': set()}
 
+def forward_pass(output_node, sorted_nodes):
+    """
+    Performs a forward pass through a list of sorted nodes. 
+
+    Argument: 
+        `output_node`: The output node of the graph (no outgoing edges).
+        `sorted_nodes`: a topologically sorted list of nodes. 
+
+    returns the output node's value
+    """
+    for n in sorted_nodes:
+        n.forward
+    return(output_node.value)
 
