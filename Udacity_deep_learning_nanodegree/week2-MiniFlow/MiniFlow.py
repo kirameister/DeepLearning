@@ -37,6 +37,26 @@ class Input(Node):
         if(value is not None):
             self.value = value
 
+class Linear(Node):
+    def __inint__(self, inputs, weights, bias):
+        Node.__init__(self, [inputs, weights, bias])
+        # NOTE: The weights and bias properties here are not
+        # numbers, but rather reference to other nodes. 
+        # The weight and bias values are stored within the
+        # respective nodes. 
+
+    def forward(self):
+        """
+        Set self.value to the value of the linear function output.
+        """
+        inputs  = self.inbound_nodes[0].value
+        weights = self.inbound_nodes[1].value
+        bias    = self.inbound_nodes[2].value
+        self.value = bias
+        for i, w in zip(inputs, weights):
+            self.value += i * w
+        return(self.value)
+
 class Add(Node):
     def __init__(self, x, y):
         Node.__init__(self, [x, y])
@@ -45,7 +65,7 @@ class Add(Node):
         self.value = self.inbound_nodes[0].value + self.inbound_nodes[1].value
 
 
-def toplogical_sort(feed_dict):
+def topological_sort(feed_dict):
     input_nodes = [n for n in feed_dict.keys()]
     G = {}
     nodes = [n for n in input_nodes]
