@@ -9,6 +9,7 @@ build a network that solves the equation below?
 (x + y) + y
 """
 
+import numpy as np
 from MiniFlow import *
 
 x, y = Input(), Input()
