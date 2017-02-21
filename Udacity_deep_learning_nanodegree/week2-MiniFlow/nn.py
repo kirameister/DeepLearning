@@ -12,14 +12,18 @@ build a network that solves the equation below?
 import numpy as np
 from MiniFlow import *
 
-x, y = Input(), Input()
+X, W, b = Input(), Input(), Input()
 
-f = Add(x, y)
+f = Linear(X, W, b)
 
-feed_dict = {x: 10, y: 5}
+X_ = np.array([[-1., -2.], [-1., -2.]])
+Y_ = np.array([[2., -3], [2., -3]])
+b_ = np.array([-3., -5])
 
-sorted_nodes = topological_sort(feed_dict)
-output = forward_pass(f, sorted_nodes)
+feed_dict = {X: X_, Y: Y_, b: b_}
+
+graph = topological_sort(feed_dict)
+output = forward_pass(f, graph)
 
 # NOTE: because topological_sort set the values for the `Input` nodes we could also access
 # the value for x with x.value (same goes for y).
