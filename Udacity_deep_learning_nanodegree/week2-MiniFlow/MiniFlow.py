@@ -38,8 +38,8 @@ class Input(Node):
             self.value = value
 
 class Linear(Node):
-    def __inint__(self, inputs, weights, bias):
-        Node.__init__(self, [inputs, weights, bias])
+    def __inint__(self, X, W, b):
+        Node.__init__(self, [X, W, b])
         # NOTE: The weights and bias properties here are not
         # numbers, but rather reference to other nodes. 
         # The weight and bias values are stored within the
@@ -49,12 +49,10 @@ class Linear(Node):
         """
         Set self.value to the value of the linear function output.
         """
-        inputs  = self.inbound_nodes[0].value
-        weights = self.inbound_nodes[1].value
-        bias    = self.inbound_nodes[2].value
-        self.value = bias
-        for i, w in zip(inputs, weights):
-            self.value += i * w
+        X = self.inbound_nodes[0].value
+        W = self.inbound_nodes[1].value
+        b = self.inbound_nodes[2].value
+        self.value = np.dot(X, W) + b
         return(self.value)
 
 class Add(Node):
