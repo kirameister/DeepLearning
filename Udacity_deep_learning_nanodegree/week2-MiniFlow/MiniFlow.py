@@ -1,5 +1,7 @@
 #!/usr/env python
 
+import numpy as np
+
 class Node(object):
     def __init__(self, inbound_nodes=[]):
         # Nodes from which this Node receives values
