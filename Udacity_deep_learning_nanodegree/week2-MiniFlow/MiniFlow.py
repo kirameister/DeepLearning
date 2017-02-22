@@ -36,8 +36,9 @@ class Input(Node):
     #   val0 = self.inbound_nodes[0].value
     def forward(self, value=None):
         # Overwrite the value if it exists. 
-        if(value is not None):
-            self.value = value
+        #if(value is not None):
+        #    self.value = value
+        pass
 
 class Linear(Node):
     def __inint__(self, X, W, b):

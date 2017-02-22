@@ -12,9 +12,12 @@ build a network that solves the equation below?
 import numpy as np
 from MiniFlow import *
 
-X, W, b = Input(), Input(), Input()
+X = Input()
+W = Input()
+b = Input()
 
-f = Linear(X, W, b)
+#f = Linear(X, W, b)
+f = Linear(X)
 
 X_ = np.array([[-1., -2.], [-1., -2.]])
 Y_ = np.array([[2., -3], [2., -3]])
