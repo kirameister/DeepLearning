@@ -89,3 +89,16 @@ def forward_pass(output_node, sorted_nodes):
         n.forward
     return(output_node.value)
 
+def Sigmoid(Node):
+    """
+    Represents a node that performs the sigmoid activation function. 
+    """
+    def __init__(self, node):
+        Node.__init__(self, [node])
+
+    def _sigmoid(self, x):
+        return(1. / (1. + np.exp(-x)))
+
+    def forward(self):
+        input_value = self.inbound_nodes[0].value
+        self.value = self._sigmoid(input_value)
