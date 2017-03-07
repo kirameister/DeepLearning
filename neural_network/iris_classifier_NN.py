@@ -1,16 +1,16 @@
 from sklearn.datasets import load_iris                  # we'd like to use off-the-shelf data for demonstration
-from sklearn.model_selection import train_test_split    # we need to split train and test partitions
 import numpy as np                                      # we'd like to calculate things with vectors
 import pandas as pd                                     # we may need to use Pandas dataframe
+
+## predefined values:
+train_test_factor = 5 # 1/5 data would be used as testset
 
 iris_raw = load_iris() # load the off-the-shelf iris data
 
 # store the Iris information onto Pandas DataFrame
+all_columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'target']
 columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
-iris_data  = pd.DataFrame(data = iris_raw['data'], columns=columns) 
-iris_class = pd.DataFrame(data = iris_raw['target'], columns = ['class']) 
-
-iris_classes = pd.get_dummies(iris_class['class'], prefix='class')
+iris_data  = pd.DataFrame(data = np.c_[iris_raw['data'], iris_raw['target']], columns=all_columns) 
 
 
 '''
@@ -26,16 +26,22 @@ for column in columns:
     # last, we'll update the original values by scaled values
     iris_data.loc[:, column] = (iris_data[column] - mean) / std
 
-# split the data into training and testing partitions
-X_train, X_test, y_train, y_test = train_test_split(iris_data, iris_classes, test_size=0.2, random_state=0)
-
 '''
 Split data into training and testing:
     As we don't have the given data in training and testing partitions split. So we'll need to split them manually. 
 '''
-# We first shuffle the rows in iris dataframe
+# We first shuffle the rows in iris dataframe with its index
 iris_data = iris_data.sample(frac=1).reset_index(drop=True)
+# We den decide the split index between training and testing partition
+all_data_size = iris_data.shape[0] # number of records/rows in given iris data
+train_test_split_index = int(1 / train_test_factor * all_data_size)
+train_data_all = iris_data[train_test_split_index:]
+test_data_all  = iris_data[:train_test_split_index]
 
+X_train = train_data_all.iloc[:,0:4]
+y_train = pd.get_dummies(train_data_all['target'], prefix='class')
+X_test  = test_data_all.iloc[:,0:4]
+y_test  = pd.get_dummies(test_data_all['target'], prefix='class')
 
 
 '''
@@ -44,5 +50,17 @@ Sigmoid function:
 '''
 def sigmoid(x):
     return(1 / 1 + np.exp(x))
+
+
+'''
+Neural Network class:
+    define a newral-network class, where all the necessary / relevant functions (except sigmoid()) are contained
+'''
+class NeuralNetwork(object):
+    def __init__(self, input_nodes, hidden_notes, output_nodes, learning_rate):
+        # input_nodes: 
+        # hidden_notes: 
+        # output_nodes: 
+        # learning_rate: rate of the learning to be applied
 
 
