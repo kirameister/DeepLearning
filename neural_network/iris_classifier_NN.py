@@ -6,15 +6,40 @@ import pandas as pd                                     # we may need to use Pan
 iris_raw = load_iris() # load the off-the-shelf iris data
 
 # store the Iris information onto Pandas DataFrame
-iris_data = pd.DataFrame(data = iris_raw['data'], columns = ['sepal_length'] + ['sepal_width'] + ['petal_length'] + ['petal_width']) 
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width']
+iris_data  = pd.DataFrame(data = iris_raw['data'], columns=columns) 
 iris_class = pd.DataFrame(data = iris_raw['target'], columns = ['class']) 
 
 iris_classes = pd.get_dummies(iris_class['class'], prefix='class')
+
+
+'''
+Feature normalization:
+    All the given features (sepal_length, sepal_width, petal_length, and petal_width) are given in float values, but not yet normalized. We'll apply scaling so that all values in a given feature would be in normal destribution form (mean=0 and standard-deviation=1)
+'''
+scaled_features = {}
+for column in columns:
+    # first, we'll obtain the value of mean and standard deviation
+    mean, std = iris_data[column].mean(), iris_data[column].std()
+    # second, we store those values in case original values are needed
+    scaled_features[column] = [mean, std]
+    # last, we'll update the original values by scaled values
+    iris_data.loc[:, column] = (iris_data[column] - mean) / std
+
 # split the data into training and testing partitions
 X_train, X_test, y_train, y_test = train_test_split(iris_data, iris_classes, test_size=0.2, random_state=0)
 
 '''
-sigmoid function: 
+Split data into training and testing:
+    As we don't have the given data in training and testing partitions split. So we'll need to split them manually. 
+'''
+# We first shuffle the rows in iris dataframe
+iris_data = iris_data.sample(frac=1).reset_index(drop=True)
+
+
+
+'''
+Sigmoid function: 
     given a vlaue (can be np vector) x, return (1 / 1+np.exp(x))
 '''
 def sigmoid(x):
