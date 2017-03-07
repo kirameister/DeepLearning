@@ -57,10 +57,23 @@ Neural Network class:
     define a newral-network class, where all the necessary / relevant functions (except sigmoid()) are contained
 '''
 class NeuralNetwork(object):
-    def __init__(self, input_nodes, hidden_notes, output_nodes, learning_rate):
-        # input_nodes: 
-        # hidden_notes: 
-        # output_nodes: 
+    def __init__(self, input_nodes, hidden_nodes, output_nodes, learning_rate):
+        # input_nodes:   number of input nodes
+        # hidden_nodes:  number of hidden nodes
+        # output_nodes:  number of output nodes
         # learning_rate: rate of the learning to be applied
+        self.input_nodes = input_nodes
+        self.hidden_nodes = hidden_nodes
+        self.output_nodes = output_nodes
+        self.learning_rate = learning_rate
+
+        # initialize the weights
+        self.weights_input_hidden  = np.random.normal(0.0, self.hidden_nodes**-0.5, 
+                                        (self.hidden_nodes, self.input_nodes))
+        self.weights_hidden_output = np.random.normal(0.0, self.output_nodes**-0.5, 
+                                        (self.output_nodes, self.hidden_nodes))
+
+        # specify the activation function (sigmoid function in this case)
+        self.activation_function = sigmoid
 
 
