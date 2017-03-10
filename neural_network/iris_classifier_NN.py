@@ -92,6 +92,8 @@ class NeuralNetwork(object):
         # backward propergation
         #  calculate the errors in output layer
         output_errors = targets - final_outputs
+        pass
+
 
 
 
