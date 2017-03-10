@@ -81,4 +81,17 @@ class NeuralNetwork(object):
         inputs  = np.array(input_list, ndmin=2).T
         targets = np.array(target_list, ndmin=2).T
 
+        # forward pass
+        #  calculate the output values of hidden layer
+        hidden_inputs  = np.dot(self.weights_input_hidden, inputs)
+        hidden_outputs = self.activation_function(hidden_inputs)
+        #  calculate the outputs value(s) of output layer
+        final_inputs  = np.dot(self.weights_hidden_output, hidden_outputs)
+        final_outputs = self.activation_function(final_inputs)
+
+        # backward propergation
+        #  calculate the errors in output layer
+        output_errors = targets - final_outputs
+
+
 
