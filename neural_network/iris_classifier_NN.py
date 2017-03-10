@@ -76,4 +76,9 @@ class NeuralNetwork(object):
         # specify the activation function (sigmoid function in this case)
         self.activation_function = sigmoid
 
+    def train(self, input_list, target_list):
+        # convert the input list into 2-D (NumPy) array
+        inputs  = np.array(input_list, ndmin=2).T
+        targets = np.array(target_list, ndmin=2).T
+
 
