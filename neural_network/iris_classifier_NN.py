@@ -94,6 +94,7 @@ class NeuralNetwork(object):
         output_errors = targets - final_outputs
         pass
 
-
+    def run(self, input_list):
+        pass
 
 
