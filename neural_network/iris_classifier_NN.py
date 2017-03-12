@@ -51,6 +51,12 @@ Sigmoid function:
 def sigmoid(x):
     return(1 / 1 + np.exp(x))
 
+'''
+Mean Square Error function:
+    given 2 set of values, return the value of mean square error
+'''
+def MSE(y, Y):
+    return(np.mean(y-Y)**2)
 
 '''
 Neural Network class:
